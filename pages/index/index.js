@@ -1,10 +1,13 @@
 //index.js
 //获取应用实例
+var data = require("../../data/data.js");
+var Chapters = data.getChapters();
+var i = 0;
+var datas = [];
 var app = getApp()
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {}
+    chapters: []
   },
   //事件处理函数
   bindViewTap: function() {
@@ -12,15 +15,24 @@ Page({
       url: '../logs/logs'
     })
   },
-  onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
-      //更新数据
-      that.setData({
-        userInfo:userInfo
-      })
+  changeData: function() {
+    this.setData({
+      item: {
+        index: 1,
+        msg: 'hahah',
+        time: '2017-09-07'
+      }
     })
+  },
+  getDatas: function() {
+    datas = this.data.chapters;
+    datas.push(Chapters[i]);
+    console.log(datas);
+    return datas;
+  },
+  onLoad: function () {
+    this.setData({
+      chapters: this.getDatas()
+    });
   }
 })
